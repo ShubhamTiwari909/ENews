@@ -16,6 +16,7 @@ function Search() {
         axios.get(`https://newsapi.org/v2/everything?q=${topic}&pageSize=100&apiKey=d8ed80a139314f978fa03379413393d4`)
             .then(response => {
                 setNewsData(response.data.articles)
+                // console.log(response)
             })
             .catch(err => console.log(err));
     }
