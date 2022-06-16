@@ -4,14 +4,23 @@ import axios from 'axios'
 
 function Headlines() {
     const [headlines, setHeadlines] = useState([]);
+    const options = {
+        method: 'GET',
+        url: 'https://bing-news-search1.p.rapidapi.com/news/search',
+        params: { q: 'india', count: '100', freshness: 'Day', textFormat: 'Raw', safeSearch: 'Off' },
+        headers: {
+            'X-BingApis-SDK': 'true',
+            'X-RapidAPI-Key': '57a099fbc9msh14d1195ebbaf26bp1159c0jsnfe005085f3f8',
+            'X-RapidAPI-Host': 'bing-news-search1.p.rapidapi.com'
+        }
+    };
     useEffect(() => {
-        axios.get("https://newsapi.org/v2/top-headlines?country=in&pageSize=100&apiKey=d8ed80a139314f978fa03379413393d4")
-            .then(response => {
-                setHeadlines(response.data.articles)
-                console.log(response)
-            })
-            .catch(err => console.log(err));
-
+        axios.request(options).then(function (response) {
+            console.log(response.data.value);
+            setHeadlines(response.data.value);
+        }).catch(function (error) {
+            console.error(error);
+        });
     }, [])
 
     return (
